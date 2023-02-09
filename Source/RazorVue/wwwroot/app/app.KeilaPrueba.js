@@ -2,7 +2,7 @@
 
 export default {
     components: {
-        DemoGrid
+        DemoGrid,
     },
     data:() => ({
         nombre: "OSIRIS",
@@ -64,6 +64,8 @@ export default {
                 SIGNIFICADO: QUE POSEE VISTA PODEROSA, HIJO DE "NUT" Y ESPOSO DE "ISIS", DIVINIDAD CREADORA, PRINCIPIO DEL BIEN. <br>
                 GENERO: {{genero}}
 
+                <br/>
+                <hr/>
                 
                 <link rel="stylesheet" href="/app/component/Grid/Grid.js.css" />
                 <form id="search">
@@ -74,5 +76,10 @@ export default {
                     :columns="gridColumns"
                     :filter-key="searchQuery">
                   </DemoGrid>
+                  <CustomForm>
+                    <div>
+                        <input type="email" />
+                    </div>
+                  </CustomForm>
     `),
 };

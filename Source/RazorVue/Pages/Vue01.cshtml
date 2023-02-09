@@ -1,0 +1,118 @@
+﻿@page
+@model Vue01Model
+@{ }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RazorVue</title>
+    <script src="/lib/vue/dist/vue.global.js"></script>
+    <style>
+        .box {
+            background-color: purple;
+            height: 200px;
+            width: 200px;
+        }
+        .box.two {
+            background-color: red;
+        }
+
+        .box.three {
+            background-color: blue;
+        }
+        [v-cloak] {
+            display: none;
+        }
+        input {
+            margin: 10px;
+            display: block;
+        }
+        .btnLog {
+            color: green;
+        }
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>          <!-- v-cloak sirve para que al recargar la página no se vea el renderizado. -->
+        {{ greeting }}              <!-- Para llamar una variable en Vue, voy a ponerla entre doble llaves. -->
+                                    <!-- Cualquier cosa que se encuentre dentro de {{}}, será interpretado como JavaScript por Vue. -->
+        <input v-on:keyup.enter="greet('！！！' + greeting + '！！！')" v-model="greeting" /> <!-- Agrego directiva de Vue "v-model", y lo une con la variable que pasemos como argumento. -->
+        <hr />
+
+        <login-form />              <!-- Creo un form tag de Vue como si fuera de HTML. -->
+        <hr/>
+
+        <button v-on:click.middle.prevent.stop="isVisible = !isVisible">Toggle Box</button>
+        <div v-if="isVisible" class="box"></div>
+        <div v-else-if="isVisible2" class="box two"></div>
+        <div class="box three"></div>
+        <button v-on:click="toggleBox">Another Toggle Box</button>
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        // Creo variable Vue, que me da un método llamado "createApp()", que crea mi aplicación Vue. Y puedo pasarle un objeto de opciones (options object).
+            // Y lo guardo en una variable llamada app.
+        let app = Vue.createApp({               // A partir de esta llave hasta donde cierra es un objeto llamado "options object". Así que cada variable o funciones que voy a usar en la aplicación van a vivir acá adentro.
+            data: function () {                 // Para crear una variable en la instancia Vue, necesito crear la función data.
+                return {                        // Y necesito devolver un obj. Que en este obj que es devuelto por la función data, puedo poner las variables que quiera.
+                    greeting: 'Hello Vue 3!',       // Y creo la variable "greeting" con el mensaje.
+                    isVisible: false,
+                    isVisible2: true
+                }
+            },
+            methods: {
+                toggleBox() {                               // Es igual = toggleBox: function() {....}
+                    this.isVisible = !this.isVisible        // Lo mismo para ocultar la caja, pero creando un método.
+                },
+                greet(greeting) {
+                    console.log(greeting)
+                    alert(greeting)
+                }
+            }
+        })
+        // Uso método mount() para decirle que monte la aplicación Vue en el HTML.
+            // Y le digo que monte la app Vue adentro del div con id="app".
+            /* Y eso significa que la instancia de Vue js que estoy creando acá será capaz de conectarse y mostrar datos, e interactuar
+               con cualquier tipo de elemento DOM dentro de dicho div.
+            */
+        // Defino el form como un componente Vue antes de definir la variable app (que es la instancia Vue), y antes de montarlo al DOM.
+        app.component('login-form', {         // Tomo dos parámetros, el nombre del componente que voy a usar para el form. Y el segundo es un objeto de opciones.
+            template: `
+                <form v-on:submit.prevent="handleSubmit">
+                    <h1>{{ title }}</h1>
+                    <input type="email" v-model="email" />
+                    <input type="password" v-model="password" />
+                    <button class="btnLog" v-bind:class="{ red: isRed }" v-on:click="toggleRed" v-bind:title="message">Log in</button>
+                </form>
+            `,
+            data() {
+                return {
+                    title: 'Login Form',
+                    email: '',
+                    password: '',
+                    isRed: true,
+                    message: 'Click on me!'
+                }
+            },
+            methods: {
+                handleSubmit() {
+                    console.log(this.email, this.password)
+                },
+                toggleRed() {
+                  this.isRed = !this.isRed
+                }
+            }
+        })                                 //Y como este es su propio componente autónomo, puedo usar cualquiera de las mismas opciones que usé antes (Ej: data, methods, etc).
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
+
