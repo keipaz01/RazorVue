@@ -6,6 +6,7 @@ import FormBindings from './app.FormBindings.js'
 import SimpleComponent from './app.SimpleComponent.js'
 import FetchingData from './app.FetchingData.js'
 import GridWithSortAndFilter from './app.GridWithSortAndFilter.js'
+import KeilaPrueba from './app.KeilaPrueba.js'
 
 const routes = {
     '/': Home,
@@ -14,7 +15,8 @@ const routes = {
     '/FormBindings': FormBindings,
     '/SimpleComponent': SimpleComponent,
     '/FetchingData': FetchingData,
-    '/GridWithSortAndFilter': GridWithSortAndFilter
+    '/GridWithSortAndFilter': GridWithSortAndFilter,
+    '/KeilaPrueba': KeilaPrueba
 }
 
 export default {
@@ -44,6 +46,7 @@ export default {
 <a href="#/SimpleComponent">Simple Component</a> |
 <a href="#/FetchingData">Fetching Data</a> |
 <a href="#/GridWithSortAndFilter">Grid with Sort and Filter</a> |
+<a href="#/KeilaPrueba">Keila Prueba</a> |
 <a href="#/non-existent-path">Broken Link</a>
 <hr/>
 <component :is="currentView" />
