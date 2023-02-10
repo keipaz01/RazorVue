@@ -39,7 +39,7 @@
 
 <body>
     <div id="app" v-cloak>          <!-- v-cloak sirve para que al recargar la página no se vea el renderizado. -->
-        {{ greeting }}              <!-- Para llamar una variable en Vue, voy a ponerla entre doble llaves. -->
+        <h2>{{ greeting }} </h2>             <!-- Para llamar una variable en Vue, voy a ponerla entre doble llaves. -->
                                     <!-- Cualquier cosa que se encuentre dentro de {{}}, será interpretado como JavaScript por Vue. -->
         <input v-on:keyup.enter="greet('！！！' + greeting + '！！！')" v-model="greeting" /> <!-- Agrego directiva de Vue "v-model", y lo une con la variable que pasemos como argumento. -->
         <hr />
